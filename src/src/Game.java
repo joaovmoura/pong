@@ -3,16 +3,23 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
     public static int WIDTH = 480, HEIGHT = 320;
     private Player player;
+    private Adversary adversary;
 
+    private Ball ball;
     public Game() {
         this.addKeyListener(this); // Adicionamos eventos de teclado
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.player = new Player(0, 0);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT+30));
+        this.player = new Player();
+        this.adversary = new Adversary();
+        Random r = new Random();
+        this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
+
     }
     public static void main(String[] args) {
         Game game = new Game();
@@ -37,6 +44,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     private void tick() {
         player.tick();
+        adversary.tick();
+        ball.tick();
     }
 
     public void render(){
@@ -46,13 +55,30 @@ public class Game extends Canvas implements Runnable, KeyListener {
             return;
         }
         Graphics g = getBufferStrategy().getDrawGraphics();
+
+
+        //Desenhando fundo da tela
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+
+
+        //Pontuação dos players
+        g.setColor(Color.blue);
+        g.fillRect(0, HEIGHT, WIDTH, 30);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
         g.setColor(Color.white);
-        g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT);
+        g.drawString("P1:", 5, HEIGHT+20);
+        g.drawString(player.points.toString(), 35, HEIGHT+20);
+        g.drawString(adversary.points.toString(), (WIDTH) - 20, HEIGHT+20);
+        g.drawString("P2:", (WIDTH) - 50, HEIGHT+20);
+
+        //Desenhando linha no centro
+        g.setColor(Color.white);
+        g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT+30);
 
         player.render(g);
-
+        adversary.render(g);
+        ball.render(g);
         bs.show();
 
     }

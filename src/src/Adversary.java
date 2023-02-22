@@ -1,13 +1,13 @@
 import java.awt.*;
 
-public class Player extends Rectangle {
-
+public class Adversary extends Rectangle{
     public boolean up, down;
     private final int spd = 4;
 
     public Integer points = 0;
-    public Player(){
-        super(0, 0, 10, 70);
+
+    public Adversary(){
+        super(Game.WIDTH-10, 0, 10, 70);
         up = false;
         down = false;
     }
