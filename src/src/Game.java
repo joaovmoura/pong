@@ -10,6 +10,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static int WIDTH = 480, HEIGHT = 320;
     private Player player;
     private Adversary adversary;
+    private Boolean isPaused;
 
     private Ball ball;
     public Game() {
@@ -17,6 +18,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT+30));
         this.player = new Player();
         this.adversary = new Adversary();
+        this.isPaused = true;
         Random r = new Random();
         this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
 
@@ -95,10 +97,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
                 }
             }
     }
-
     @Override
     public void keyTyped(KeyEvent e) {
+    }
 
+    private void pause() {
+        this.ball.setSpd(0);
+        this.isPaused = true;
+    }
+    private void unPause() {
+        this.ball.setSpd(2);
+        this.isPaused = false;
     }
 
     @Override
@@ -107,6 +116,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
             this.player.up = true;
         else if (e.getKeyCode() == KeyEvent.VK_DOWN)
             this.player.down = true;
+
+        if(e.getKeyCode() == KeyEvent.VK_W)
+            this.adversary.up = true;
+        else if (e.getKeyCode() == KeyEvent.VK_S)
+            this.adversary.down = true;
+
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && isPaused)
+            unPause();
+        else if(e.getKeyCode() == KeyEvent.VK_SPACE && !isPaused)
+            pause();
     }
 
     @Override
@@ -115,5 +134,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
             this.player.up = false;
         else if (e.getKeyCode() == KeyEvent.VK_DOWN)
             this.player.down = false;
+
+        if(e.getKeyCode() == KeyEvent.VK_W)
+            this.adversary.up = false;
+        else if (e.getKeyCode() == KeyEvent.VK_S)
+            this.adversary.down = false;
     }
 }
