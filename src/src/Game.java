@@ -59,6 +59,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Graphics g = getBufferStrategy().getDrawGraphics();
 
 
+        renderScenario(g);
+
+        player.render(g);
+        adversary.render(g);
+        ball.render(g);
+        bs.show();
+
+    }
+
+    private void renderScenario(Graphics g) {
         //Desenhando fundo da tela
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -77,12 +87,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
         //Desenhando linha no centro
         g.setColor(Color.white);
         g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT+30);
-
-        player.render(g);
-        adversary.render(g);
-        ball.render(g);
-        bs.show();
-
     }
 
     @Override
