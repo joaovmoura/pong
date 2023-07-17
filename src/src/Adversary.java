@@ -22,4 +22,9 @@ public class Adversary extends Rectangle{
         g.setColor(Color.white);
         g.fillRect(x, y, width, height);
     }
+
+    //TODO: Pontuação aumenta de acordo com as rodadas
+    public void point(){
+        this.points=1;
+    }
 }

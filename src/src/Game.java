@@ -7,8 +7,11 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
+    //TODO: Jogo acaba quando um dos players fazem 10 pontos
     public static int WIDTH = 480, HEIGHT = 320;
     public static Player player; // alterado para público e estático
+
+    //TODO: Tirar a classe adversary e transformar o objeto em "player2" para melhorar o reuso de código
     public static Adversary adversary; // alterado para público e estático
     private Boolean isPaused;
 

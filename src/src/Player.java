@@ -22,4 +22,8 @@ public class Player extends Rectangle {
         g.setColor(Color.white);
         g.fillRect(x, y, width, height);
     }
+    // TODO: Pontuação aumenta conforme as rodadas
+    public void point(){
+        this.points=1;
+    }
 }
