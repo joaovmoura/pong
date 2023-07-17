@@ -8,20 +8,19 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable, KeyListener {
 
     public static int WIDTH = 480, HEIGHT = 320;
-    private Player player;
-    private Adversary adversary;
+    public static Player player; // alterado para público e estático
+    public static Adversary adversary; // alterado para público e estático
     private Boolean isPaused;
 
     private Ball ball;
     public Game() {
-        this.addKeyListener(this); // Adicionamos eventos de teclado
+        this.addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT+30));
-        this.player = new Player();
-        this.adversary = new Adversary();
+        player = new Player(); // removido "this."
+        adversary = new Adversary(); // removido "this."
         this.isPaused = true;
         Random r = new Random();
         this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
-
     }
     public static void main(String[] args) {
         Game game = new Game();
@@ -38,7 +37,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
         frame.setVisible(true);
         game.start();
     }
-
     public void start(){
         Thread t = new Thread(this);
         t.start();
