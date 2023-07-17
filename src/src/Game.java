@@ -106,6 +106,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+//  TODO: Parar movimentação dos players quando o jogo estiver pausado
     private void pause() {
         this.ball.setSpd(0);
         this.isPaused = true;
