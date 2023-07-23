@@ -25,6 +25,7 @@ public class Adversary extends Rectangle{
 
     //TODO: Pontuação aumenta de acordo com as rodadas
     public void point(){
-        this.points=1;
+        this.points+=1;
+        Game.pointed = true;
     }
 }

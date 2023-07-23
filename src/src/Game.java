@@ -15,6 +15,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Adversary adversary; // alterado para público e estático
     private Boolean isPaused;
 
+    public static Boolean pointed = false;
     private Ball ball;
     public Game() {
         this.addKeyListener(this);
@@ -46,6 +47,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     private void tick() {
+        if(pointed)
+            restart();
         player.tick();
         adversary.tick();
         ball.tick();
@@ -96,7 +99,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
                 tick();
                 render();
                 try {
-                    Thread.sleep(1000 / 90);
+                    Thread.sleep(1000 / 75);
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
@@ -116,6 +119,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         this.isPaused = false;
     }
 
+    public void restart(){
+
+        this.isPaused = true;
+        Random r = new Random();
+        this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
+        pointed = false;
+    }
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP)

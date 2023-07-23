@@ -24,6 +24,7 @@ public class Player extends Rectangle {
     }
     // TODO: Pontuação aumenta conforme as rodadas
     public void point(){
-        this.points=1;
+        this.points+=1;
+        Game.pointed = true;
     }
 }
