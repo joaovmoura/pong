@@ -96,7 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
                 tick();
                 render();
                 try {
-                    Thread.sleep(1000 / 60);
+                    Thread.sleep(1000 / 90);
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
