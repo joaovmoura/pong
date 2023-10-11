@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-    //TODO: Jogo acaba quando um dos players fazem 10 pontos
+    //TODO: Jogo acaba quando um dos player1s fazem 10 pontos
     public static int WIDTH = 480, HEIGHT = 320;
-    public static Player player; // alterado para público e estático
+    public static Player player1; // alterado para público e estático
 
-    //TODO: Tirar a classe adversary e transformar o objeto em "player2" para melhorar o reuso de código
-    public static Adversary adversary; // alterado para público e estático
+    //TODO: Tirar a classe player2 e transformar o objeto em "player12" para melhorar o reuso de código
+    public static Player player2; // alterado para público e estático
     private Boolean isPaused;
 
     public static Boolean pointed = false;
@@ -20,8 +20,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public Game() {
         this.addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT+30));
-        player = new Player(); // removido "this."
-        adversary = new Adversary(); // removido "this."
+        player1 = new Player(0, 0); // removido "this."
+        player2 = new Player(WIDTH-10, 0); // removido "this."
         this.isPaused = true;
         Random r = new Random();
         this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
@@ -49,8 +49,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private void tick() {
         if(pointed)
             restart();
-        player.tick();
-        adversary.tick();
+        player1.tick();
+        player2.tick();
         ball.tick();
     }
 
@@ -65,8 +65,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         renderScenario(g);
 
-        player.render(g);
-        adversary.render(g);
+        player1.render(g);
+        player2.render(g);
         ball.render(g);
         bs.show();
 
@@ -78,14 +78,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
 
-        //Pontuação dos players
+        //Pontuação dos player1s
         g.setColor(Color.blue);
         g.fillRect(0, HEIGHT, WIDTH, 30);
         g.setFont(new Font("Arial", Font.BOLD, 15));
         g.setColor(Color.white);
         g.drawString("P1:", 5, HEIGHT+20);
-        g.drawString(player.points.toString(), 35, HEIGHT+20);
-        g.drawString(adversary.points.toString(), (WIDTH) - 20, HEIGHT+20);
+        g.drawString(player1.points.toString(), 35, HEIGHT+20);
+        g.drawString(player2.points.toString(), (WIDTH) - 20, HEIGHT+20);
         g.drawString("P2:", (WIDTH) - 50, HEIGHT+20);
 
         //Desenhando linha no centro
@@ -109,7 +109,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-//  TODO: Parar movimentação dos players quando o jogo estiver pausado
+//  TODO: Parar movimentação dos player1s quando o jogo estiver pausado
     private void pause() {
         this.ball.setSpd(0);
         this.isPaused = true;
@@ -129,14 +129,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP)
-            this.player.up = true;
+            this.player1.up = true;
         else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-            this.player.down = true;
+            this.player1.down = true;
 
         if(e.getKeyCode() == KeyEvent.VK_W)
-            this.adversary.up = true;
+            this.player2.up = true;
         else if (e.getKeyCode() == KeyEvent.VK_S)
-            this.adversary.down = true;
+            this.player2.down = true;
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE && isPaused)
             unPause();
@@ -147,13 +147,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP)
-            this.player.up = false;
+            this.player1.up = false;
         else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-            this.player.down = false;
+            this.player1.down = false;
 
         if(e.getKeyCode() == KeyEvent.VK_W)
-            this.adversary.up = false;
+            this.player2.up = false;
         else if (e.getKeyCode() == KeyEvent.VK_S)
-            this.adversary.down = false;
+            this.player2.down = false;
     }
 }

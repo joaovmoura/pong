@@ -10,11 +10,11 @@ public class Ball extends Rectangle {
     }
 
 
-    // TODO: Melhorar encapsulamento de player e adversary
+    // TODO: Melhorar encapsulamento de player e player2
     public void tick(){
         x+=(spd * xDirection);
         y+=(spd * yDirection);
-        if(this.intersects(Game.player)|| this.intersects(Game.adversary)) {
+        if(this.intersects(Game.player1)|| this.intersects(Game.player2)) {
             xDirection *= -1;
         }
         if(this.intersectsLine(0, 320, 480, 320) ||
@@ -23,11 +23,11 @@ public class Ball extends Rectangle {
         }
 //        TODO: Implentmentar "Game.resetBall()" para que o jogo tenha mais de uma rodada
         if(this.intersectsLine(0, 0, 0, 320)) {
-            Game.adversary.point();
+            Game.player2.point();
         }
 
         if(this.intersectsLine(480, 0, 480, 320)) {
-            Game.player.point();
+            Game.player1.point();
         }
     }
     public void render (Graphics g){

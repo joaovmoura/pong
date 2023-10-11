@@ -6,8 +6,8 @@ public class Player extends Rectangle {
     private final int spd = 4;
 
     public Integer points = 0;
-    public Player(){
-        super(0, 0, 10, 70);
+    public Player(int x, int y){
+        super(x, y, 10, 70);
         up = false;
         down = false;
     }
