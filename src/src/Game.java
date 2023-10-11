@@ -15,6 +15,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Player player2; // alterado para público e estático
     private Boolean isPaused;
 
+    public static Player lastToPoint = null;
     public static Boolean pointed = false;
     private Ball ball;
     public Game() {
@@ -24,7 +25,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         player2 = new Player(WIDTH-10, 0); // removido "this."
         this.isPaused = true;
         Random r = new Random();
-        this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
+        this.ball = new Ball(235, r.nextInt(HEIGHT));
     }
     public static void main(String[] args) {
         Game game = new Game();
@@ -123,8 +124,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         this.isPaused = true;
         Random r = new Random();
-        this.ball = new Ball(r.nextInt(15, WIDTH-15), r.nextInt(HEIGHT));
+        if(lastToPoint.equals(player1)){
+            this.ball = new Ball(WIDTH-21, (int) player2.getY() + 30);
+            ball.setxDirection(1);
+        }
+        if(lastToPoint.equals(player2)){
+            this.ball = new Ball(11, (int) player1.getY() + 30);
+            ball.setxDirection(-1);
+        }
+
         pointed = false;
+
     }
     @Override
     public void keyPressed(KeyEvent e) {

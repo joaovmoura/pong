@@ -21,7 +21,6 @@ public class Ball extends Rectangle {
            this.intersectsLine(0, 0, 480, 0)) {
             yDirection *= -1;
         }
-//        TODO: Implentmentar "Game.resetBall()" para que o jogo tenha mais de uma rodada
         if(this.intersectsLine(0, 0, 0, 320)) {
             Game.player2.point();
         }
@@ -37,5 +36,9 @@ public class Ball extends Rectangle {
 
     public void setSpd(int spd) {
         this.spd = spd;
+    }
+
+    public void setxDirection(int xDirection) {
+        this.xDirection = xDirection;
     }
 }

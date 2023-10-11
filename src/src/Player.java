@@ -26,5 +26,6 @@ public class Player extends Rectangle {
     public void point(){
         this.points+=1;
         Game.pointed = true;
+        Game.lastToPoint = this;
     }
 }
